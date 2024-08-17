@@ -15,9 +15,14 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
         </ol>
         <img src="${imageUrl}">
     `;
+    console.log("Generated HTML:", missionTarget.innerHTML); // Check the output
 }
 
+
+// Validate input
 function validateInput(testInput) {
+    console.log('Validating input:', testInput);
+    
     if (testInput === "") {
         return "Empty";
     } else if (isNaN(testInput)) {
@@ -27,7 +32,10 @@ function validateInput(testInput) {
     }
 }
 
+// Form submission handler
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
+    console.log('Form submission details:', { pilot, copilot, fuelLevel, cargoLevel });
+    
     let pilotStatus = document.getElementById("pilotStatus");
     let copilotStatus = document.getElementById("copilotStatus");
     let fuelStatus = document.getElementById("fuelStatus");
@@ -40,24 +48,29 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     let isShuttleReady = true;
 
     if (fuelLevel < 10000) {
+        console.log('Fuel level too low');
         fuelStatus.innerHTML = "Fuel level too low for launch";
         h2.innerHTML = "Shuttle Not Ready for Launch";
         h2.style.color = "red";
         isShuttleReady = false;
     } else {
+        console.log('Fuel level sufficient');
         fuelStatus.innerHTML = "Fuel level high enough for launch";
     }
 
     if (cargoLevel > 10000) {
+        console.log('Cargo mass too heavy');
         cargoStatus.innerHTML = "Cargo mass too heavy for launch";
         h2.innerHTML = "Shuttle Not Ready for Launch";
         h2.style.color = "red";
         isShuttleReady = false;
     } else {
+        console.log('Cargo mass acceptable');
         cargoStatus.innerHTML = "Cargo mass low enough for launch";
     }
 
     if (isShuttleReady) {
+        console.log('Shuttle is ready for launch');
         h2.innerHTML = "Shuttle is Ready for Launch";
         h2.style.color = "green";
     }
@@ -68,11 +81,13 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 
 // Function to fetch planetary data from API
     async function myFetch() {
+        console.log('Fetching planetary data'); 
         let planetsReturned;
     
         planetsReturned = await fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
             return response.json();
         });
+        console.log('Planets returned:', planetsReturned);
     
         return planetsReturned;
     }
@@ -81,7 +96,9 @@ function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
 // Function to pick a random planet from the list
 function pickPlanet(planets) {
     let randomIndex = Math.floor(Math.random() * planets.length);
-    return planets[randomIndex];
+    let selectedPlanet = planets[randomIndex];
+    console.log('Picked planet:', selectedPlanet);
+    return selectedPlanet;
 }
 
  
