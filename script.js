@@ -2,6 +2,7 @@
 
 const { myFetch } = require("./scriptHelper");
 window.addEventListener("load", function() {
+    let listedPlanets;
     let listedPlanetsResponse = myFetch();
     listedPlanetsResponse.then(function(planets) {
         let selectedPlanet = pickPlanet(planets);
@@ -16,7 +17,13 @@ window.addEventListener("load", function() {
         let fuelLevel = document.querySelector("input[name=fuelLevel]").value;
         let cargoLevel = document.querySelector("input[name=cargoMass]").value;
         let list = document.getElementById("faultyItems");
-console.log(listedPlanets);
+//console.log(listedPlanets);
+// Ensure listedPlanets is defined before logging
+if (listedPlanets) {
+    console.log(listedPlanets);
+} else {
+    console.log('Planets data is not yet loaded.');
+}
        
         formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel);
     });
