@@ -35,7 +35,17 @@ function validateInput(testInput) {
 // Form submission handler
 function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
     console.log('Form submission details:', { pilot, copilot, fuelLevel, cargoLevel });
-    
+    // Check for empty fields
+    if (pilot === "" || copilot === "" || fuelLevel === "" || cargoLevel === "") {
+        alert("All fields are required.");
+        return; // Stop further execution if fields are missing
+    }
+
+    // Validate inputs
+    if (validateInput(fuelLevel) === "Not a Number" || validateInput(cargoLevel) === "Not a Number") {
+        alert("Make sure to enter valid information for each field.");
+        return; // Stop further execution if input types are invalid
+    }
     let pilotStatus = document.getElementById("pilotStatus");
     let copilotStatus = document.getElementById("copilotStatus");
     let fuelStatus = document.getElementById("fuelStatus");
